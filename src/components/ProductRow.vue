@@ -1,11 +1,12 @@
 <template>
-  <div class="product">
+  <div :class="`product ${product.strike ? 'strike-product' : ''}`">
     <div class="num-in-list">{{index + 1}}</div>
-    <div class="name">{{product.name}}</div>
+    <div @click="callAction('goToProduct')" class="name">{{product.name}}</div>
     <div class="price">{{product.price}} {{currency}}</div>
-    <div class="edit"><img src="../assets/edit.svg" alt="edit"></div>
+    <div @click="callAction('strikeProduct')" class="edit"><img src="../assets/edit.svg" alt="edit"></div>
     <div class="separator"></div>
-    <div class="delete"><img src="../assets/delete.svg" alt="delete"></div>
+    <div @click="callAction('deleteProduct')" class="delete"><img src="../assets/delete.svg" alt="delete"></div>
+    <div v-if="product.strike" class="strike-line"></div>
   </div>
 </template>
 
@@ -17,22 +18,44 @@ export default {
     index: Number,
     currency: String
   },
-  created: function () {
-    console.log(this.product)
-  },
+  methods:{
+    callAction(action){
+      this.$emit(action,this.product.id);
+    }
+  }
 }
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 
   $borderColor : #E3E3E6;
   .product{
+    position: relative;
     display: flex;
     border-bottom: 1px solid $borderColor;
     padding: 0px 24px;
     height: 48px;
     margin-bottom: 16px;
+
+    &.strike-product{
+      .name{
+        text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+        color: #B1B0B8;
+      }
+
+      .price{
+        color: #B1B0B8;
+      }
+    }
+
+    .strike-line{
+      background: #E3E3E6;
+      width: 195px;
+      height: 1px;
+      position: absolute;
+      top: 24px;
+      left: 86px;
+    }
 
     .num-in-list{
       color: #FF941A;
@@ -52,6 +75,7 @@ export default {
       line-height: 48px;
       margin: 0px 0px 0px 16px;
       text-align: left;
+      cursor: pointer;
     }
 
     .price{
@@ -66,6 +90,7 @@ export default {
       width: 18px;
       height: 18px;
       margin-top: 12px;
+      cursor: pointer;
     }
 
     .separator{
