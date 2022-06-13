@@ -1,20 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="app-title">Shopping List</div>
+<!--  <ProductsList/>-->
+  <RouterView/>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+// import ProductsList from "@/views/ProductsList";
 
 export default {
   name: 'App',
-  components: {
-    HelloWorld
-  }
+
 }
 </script>
 
-<style>
+<style lang="scss">
+body{
+  display: flex;
+  justify-content: center;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -22,5 +25,17 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  width: 375px;
+  height: 812px;
+  background: #FFFFFF;
+  border-radius: 30px;
+
+  .app-title{
+    font-family: 'Montserrat Alternates';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 20px;
+    color: #585666;
+  }
 }
 </style>
